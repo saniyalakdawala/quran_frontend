@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { ChatMessage } from "@/components/ChatMessage";
 import { ChatInput } from "@/components/ChatInput";
 import { StarField } from "@/components/StarField";
@@ -24,6 +24,9 @@ const ChatBot = () => {
     },
   ]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [searchParams] = useSearchParams();
+  const backHref = searchParams.get("conversation") ? "/history" : "/";
 
   const handleSendMessage = async (text: string) => {
     const userMessage: Message = {
@@ -75,6 +78,11 @@ const ChatBot = () => {
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
+                <Link to={backHref} aria-label="Go back">
+                  <Button variant="ghost" size="icon">
+                    <ArrowLeft className="h-5 w-5" />
+                  </Button>
+                </Link>
                 <div className="relative">
                   <Moon className="h-8 w-8 text-primary animate-float" />
                   <div className="absolute inset-0 bg-primary/30 blur-xl animate-glow-pulse" />
@@ -84,10 +92,10 @@ const ChatBot = () => {
                   <p className="text-sm text-muted-foreground">Your peaceful guide to Islamic wisdom</p>
                 </div>
               </div>
-              <Link to="/">
+              <Link to={backHref}>
                 <Button variant="secondary" size="sm" className="gap-2">
                   <ArrowLeft className="h-4 w-4" />
-                  Home
+                  Back
                 </Button>
               </Link>
             </div>
