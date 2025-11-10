@@ -1,52 +1,10 @@
-import { useState } from "react";
-import { ChatMessage } from "@/components/ChatMessage";
-import { ChatInput } from "@/components/ChatInput";
+import { Link } from "react-router-dom";
 import { StarField } from "@/components/StarField";
-import { Moon } from "lucide-react";
+import { MessageSquare, History, Moon, Sparkles } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import moonBg from "@/assets/moon-bg.jpg";
 
-interface Message {
-  id: string;
-  text: string;
-  isUser: boolean;
-  timestamp: Date;
-}
-
 const Index = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      text: "السلام عليكم! Welcome to the Quran Chatbot. How may I assist you in your journey of understanding the Holy Quran today?",
-      isUser: false,
-      timestamp: new Date(),
-    },
-  ]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSendMessage = async (text: string) => {
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      text,
-      isUser: true,
-      timestamp: new Date(),
-    };
-
-    setMessages((prev) => [...prev, userMessage]);
-    setIsLoading(true);
-
-    // Simulate bot response
-    setTimeout(() => {
-      const botMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: "Thank you for your question. I'm here to help you explore the beautiful teachings of the Quran. This is a demo response - in a real implementation, this would connect to an AI service to provide meaningful answers about the Quran.",
-        isUser: false,
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, botMessage]);
-      setIsLoading(false);
-    }, 1000);
-  };
-
   return (
     <div className="min-h-screen relative overflow-hidden bg-background">
       {/* Background with moon image */}
@@ -67,55 +25,68 @@ const Index = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col h-screen">
-        {/* Header */}
-        <header className="border-b border-border/50 bg-card/30 backdrop-blur-sm">
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex items-center gap-3">
-              <div className="relative">
-                <Moon className="h-8 w-8 text-primary animate-float" />
-                <div className="absolute inset-0 bg-primary/30 blur-xl animate-glow-pulse" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-foreground">Quran Chatbot</h1>
-                <p className="text-sm text-muted-foreground">Your peaceful guide to Islamic wisdom</p>
-              </div>
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
+        <div className="max-w-4xl w-full space-y-12 animate-fade-in-up">
+          {/* Header with moon icon */}
+          <div className="text-center space-y-4">
+            <div className="relative inline-block">
+              <Moon className="h-20 w-20 text-primary animate-float mx-auto" />
+              <div className="absolute inset-0 bg-primary/30 blur-2xl animate-glow-pulse" />
             </div>
+            <h1 className="text-5xl md:text-6xl font-bold text-foreground">
+              Quran Chatbot
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+              Welcome to your peaceful guide for exploring Islamic wisdom and the beautiful teachings of the Holy Quran
+            </p>
           </div>
-        </header>
 
-        {/* Chat messages */}
-        <div className="flex-1 overflow-y-auto">
-          <div className="container mx-auto px-4 py-6 max-w-4xl">
-            <div className="space-y-6">
-              {messages.map((message) => (
-                <ChatMessage
-                  key={message.id}
-                  message={message.text}
-                  isUser={message.isUser}
-                  timestamp={message.timestamp}
-                />
-              ))}
-              {isLoading && (
-                <div className="flex gap-3">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-secondary text-foreground">
-                    <Moon className="h-4 w-4 animate-pulse" />
+          {/* Navigation Cards */}
+          <div className="grid md:grid-cols-2 gap-6 mt-12">
+            <Link to="/chatbot" className="group">
+              <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20">
+                <CardContent className="p-8 space-y-4">
+                  <div className="relative inline-block">
+                    <div className="absolute inset-0 bg-primary/20 blur-xl group-hover:bg-primary/30 transition-all" />
+                    <MessageSquare className="h-12 w-12 text-primary relative z-10" />
                   </div>
-                  <div className="flex items-center gap-1 rounded-2xl bg-card border border-border px-4 py-3">
-                    <div className="h-2 w-2 rounded-full bg-primary animate-bounce [animation-delay:-0.3s]" />
-                    <div className="h-2 w-2 rounded-full bg-primary animate-bounce [animation-delay:-0.15s]" />
-                    <div className="h-2 w-2 rounded-full bg-primary animate-bounce" />
+                  <h2 className="text-2xl font-semibold text-foreground">Start Chatting</h2>
+                  <p className="text-muted-foreground">
+                    Ask questions and explore the Quran with our AI companion. Get thoughtful answers to deepen your understanding.
+                  </p>
+                  <div className="flex items-center gap-2 text-primary group-hover:gap-3 transition-all">
+                    <span className="text-sm font-medium">Begin your journey</span>
+                    <Sparkles className="h-4 w-4" />
                   </div>
-                </div>
-              )}
-            </div>
+                </CardContent>
+              </Card>
+            </Link>
+
+            <Link to="/history" className="group">
+              <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20">
+                <CardContent className="p-8 space-y-4">
+                  <div className="relative inline-block">
+                    <div className="absolute inset-0 bg-primary/20 blur-xl group-hover:bg-primary/30 transition-all" />
+                    <History className="h-12 w-12 text-primary relative z-10" />
+                  </div>
+                  <h2 className="text-2xl font-semibold text-foreground">View History</h2>
+                  <p className="text-muted-foreground">
+                    Revisit your previous conversations and continue your spiritual learning journey from where you left off.
+                  </p>
+                  <div className="flex items-center gap-2 text-primary group-hover:gap-3 transition-all">
+                    <span className="text-sm font-medium">Browse past chats</span>
+                    <Sparkles className="h-4 w-4" />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           </div>
-        </div>
 
-        {/* Input area */}
-        <div className="border-t border-border/50 bg-card/30 backdrop-blur-sm">
-          <div className="container mx-auto px-4 py-4 max-w-4xl">
-            <ChatInput onSendMessage={handleSendMessage} disabled={isLoading} />
+          {/* Footer text */}
+          <div className="text-center pt-8">
+            <p className="text-sm text-muted-foreground italic">
+              "Read in the name of your Lord who created" - Quran 96:1
+            </p>
           </div>
         </div>
       </div>
