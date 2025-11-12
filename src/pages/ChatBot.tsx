@@ -33,7 +33,7 @@ const ChatBot = () => {
   const backHref = searchParams.get("conversation") ? "/history" : "/";
 
   // ✅ Use Vite proxy endpoint instead of EC2 IP
-  const API_URL = "/query"; 
+  const API_URL = "https://constitutional-dean-routes-non.trycloudflare.com/query"; 
 
   const formatVerse = (v: any) => {
     return `📖 **Surah ${v.surah}, Ayah ${v.ayah}**\n\n` +
