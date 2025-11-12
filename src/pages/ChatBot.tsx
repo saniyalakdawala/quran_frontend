@@ -33,7 +33,7 @@ const ChatBot = () => {
   const backHref = searchParams.get("conversation") ? "/history" : "/";
 
   // EC2 backend URL (via Nginx)
-  const API_URL = "https://constitutional-dean-routes-non.trycloudflare.com/query"; // Replace with your EC2 public IP
+  const API_URL ="https://surgeon-definition-shannon-ant.trycloudflare.com/query"; // Replace with your EC2 public IP
 
   // Helper function to format verse
   const formatVerse = (v: any) => {
