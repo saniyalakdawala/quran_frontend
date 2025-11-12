@@ -25,12 +25,15 @@ const ChatBot = () => {
   ]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [lastQuery, setLastQuery] = useState(""); // Store last query
-  const [lastResponse, setLastResponse] = useState<any[]>([]); // Store last backend response
-  const [lastIndex, setLastIndex] = useState(0); // Index for navigation
+  const [lastQuery, setLastQuery] = useState(""); 
+  const [lastResponse, setLastResponse] = useState<any[]>([]); 
+  const [lastIndex, setLastIndex] = useState(0); 
 
   const [searchParams] = useSearchParams();
   const backHref = searchParams.get("conversation") ? "/history" : "/";
+
+  // EC2 backend URL (via Nginx)
+  const API_URL = "http://98.93.32.38/query"; // Replace with your EC2 public IP
 
   // Helper function to format verse
   const formatVerse = (v: any) => {
@@ -62,7 +65,7 @@ const ChatBot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://98.93.32.38:5000/query", {
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: text }),
