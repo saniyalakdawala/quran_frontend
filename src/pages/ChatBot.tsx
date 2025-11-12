@@ -62,7 +62,7 @@ const ChatBot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://98.93.84.82:5000/query", {
+      const response = await fetch("http://98.93.32.38:5000/query", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: text }),
