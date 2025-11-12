@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import ChatBot from "./pages/ChatBot";
 import History from "./pages/History";
-import NotFound from "./pages/NotFound";
+
 
 const queryClient = new QueryClient();
 
@@ -21,7 +21,7 @@ const App = () => (
           <Route path="/chatbot" element={<ChatBot />} />
           <Route path="/history" element={<History />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

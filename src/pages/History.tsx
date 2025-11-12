@@ -4,6 +4,7 @@ import { ArrowLeft, MessageSquare, Calendar, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import moonBg from "@/assets/moon-bg.jpg";
+import { useEffect, useState } from "react";
 
 interface ChatHistoryItem {
   id: string;
@@ -14,30 +15,18 @@ interface ChatHistoryItem {
 }
 
 const History = () => {
-  // Mock data - in real app this would come from database
-  const chatHistory: ChatHistoryItem[] = [
-    {
-      id: "1",
-      title: "Understanding Prayer Times",
-      date: new Date("2024-01-15"),
-      preview: "Can you explain the significance of the five daily prayers?",
-      messageCount: 8,
-    },
-    {
-      id: "2",
-      title: "Surah Al-Fatiha Meaning",
-      date: new Date("2024-01-14"),
-      preview: "What is the deeper meaning of Surah Al-Fatiha?",
-      messageCount: 12,
-    },
-    {
-      id: "3",
-      title: "Ramadan Practices",
-      date: new Date("2024-01-12"),
-      preview: "Tell me about the spiritual benefits of fasting during Ramadan",
-      messageCount: 15,
-    },
-  ];
+  const [chatHistory, setChatHistory] = useState<ChatHistoryItem[]>([]);
+
+  useEffect(() => {
+    // Load history from localStorage
+    const storedHistory = localStorage.getItem("chatHistory");
+    if (storedHistory) {
+      const parsed: ChatHistoryItem[] = JSON.parse(storedHistory);
+      // Convert date strings back to Date objects
+      parsed.forEach((item) => (item.date = new Date(item.date)));
+      setChatHistory(parsed);
+    }
+  }, []);
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-background">
