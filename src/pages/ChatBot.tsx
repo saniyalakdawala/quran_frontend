@@ -32,10 +32,9 @@ const ChatBot = () => {
   const [searchParams] = useSearchParams();
   const backHref = searchParams.get("conversation") ? "/history" : "/";
 
-  // EC2 backend URL (via Nginx)
-  const API_URL = "http://98.93.32.38/query"; // Replace with your EC2 public IP
+  // ✅ Use Vite proxy endpoint instead of EC2 IP
+  const API_URL = "/query"; 
 
-  // Helper function to format verse
   const formatVerse = (v: any) => {
     return `📖 **Surah ${v.surah}, Ayah ${v.ayah}**\n\n` +
            `**Arabic:** ${v.arabic}\n\n` +
